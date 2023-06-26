@@ -93,6 +93,8 @@ class QueryResult:
 
 
 class DistanceStrategy(str, enum.Enum):
+    """Enumerator of the Distance strategies."""
+
     EUCLIDEAN = EmbeddingStore.embedding.l2_distance
     COSINE = EmbeddingStore.embedding.cosine_distance
     MAX_INNER_PRODUCT = EmbeddingStore.embedding.max_inner_product
@@ -504,6 +506,33 @@ class PGVector(VectorStore):
             pre_delete_collection=pre_delete_collection,
             **kwargs,
         )
+
+    @classmethod
+    def from_existing_index(
+        cls: Type[PGVector],
+        embedding: Embeddings,
+        collection_name: str = _LANGCHAIN_DEFAULT_COLLECTION_NAME,
+        distance_strategy: DistanceStrategy = DistanceStrategy.COSINE,
+        pre_delete_collection: bool = False,
+        **kwargs: Any,
+    ) -> PGVector:
+        """
+        Get intsance of an existing PGVector store.This method will
+        return the instance of the store without inserting any new
+        embeddings
+        """
+
+        connection_string = cls.get_connection_string(kwargs)
+
+        store = cls(
+            connection_string=connection_string,
+            collection_name=collection_name,
+            embedding_function=embedding,
+            distance_strategy=distance_strategy,
+            pre_delete_collection=pre_delete_collection,
+        )
+
+        return store
 
     @classmethod
     def get_connection_string(cls, kwargs: Dict[str, Any]) -> str:
