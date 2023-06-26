@@ -3,9 +3,11 @@ from typing import Dict, Type
 
 from langchain.llms.ai21 import AI21
 from langchain.llms.aleph_alpha import AlephAlpha
+from langchain.llms.amazon_api_gateway import AmazonAPIGateway
 from langchain.llms.anthropic import Anthropic
 from langchain.llms.anyscale import Anyscale
 from langchain.llms.aviary import Aviary
+from langchain.llms.azureml_endpoint import AzureMLOnlineEndpoint
 from langchain.llms.bananadev import Banana
 from langchain.llms.base import BaseLLM
 from langchain.llms.baseten import Baseten
@@ -52,9 +54,11 @@ from langchain.llms.writer import Writer
 __all__ = [
     "AI21",
     "AlephAlpha",
+    "AmazonAPIGateway",
     "Anthropic",
     "Anyscale",
     "Aviary",
+    "AzureMLOnlineEndpoint",
     "AzureOpenAI",
     "Banana",
     "Baseten",
@@ -104,10 +108,13 @@ __all__ = [
 type_to_cls_dict: Dict[str, Type[BaseLLM]] = {
     "ai21": AI21,
     "aleph_alpha": AlephAlpha,
+    "amazon_api_gateway": AmazonAPIGateway,
+    "amazon_bedrock": Bedrock,
     "anthropic": Anthropic,
     "anyscale": Anyscale,
     "aviary": Aviary,
     "azure": AzureOpenAI,
+    "azureml_endpoint": AzureMLOnlineEndpoint,
     "bananadev": Banana,
     "baseten": Baseten,
     "beam": Beam,
